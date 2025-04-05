@@ -7,7 +7,6 @@ import {
   faUserPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-import { signupUser } from "../utils/api";
 
 export default function SignupPage() {
   const [formData, setFormData] = useState({
@@ -16,16 +15,14 @@ export default function SignupPage() {
     password: "",
   });
 
-  const [message, setMessage] = useState("");
-
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSignup = async (e) => {
+  const handleSignup = (e) => {
     e.preventDefault();
-    const res = await signupUser(formData);
-    setMessage(res.msg || res.detail);
+    alert(`Signing up with:\n${JSON.stringify(formData, null, 2)}`);
+    // API call logic will go here
   };
 
   return (
@@ -87,11 +84,6 @@ export default function SignupPage() {
             Sign Up
           </button>
         </form>
-
-        {/* Response Message */}
-        {message && (
-          <p className="text-center text-sm text-green-600 mt-4">{message}</p>
-        )}
 
         <p className="text-center text-sm text-gray-600 mt-4">
           Already have an account?{" "}
